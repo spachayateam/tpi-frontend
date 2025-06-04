@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentirse Bien - Turnos </title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/payment-method-form.css">
+  <link rel="shortcut icon" href="/media/icono_oficial.png" type="image/x-icon">
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <main class="main_deturnos">
+
+    <section class="blog-section">
+      <h2 class="blog-title">RESERVÁ TU TURNO</h2>
+      <p class="blog-subtitle">Revisá nuestro blog para conocer novedades y promociones.</p>
+
+      <div class="blog-grid" id="blogGrid"></div>
+    </section>
+
+    <section class="tips-spa">
+      <h2>Tips para disfrutar tu turno en el Spa</h2>
+
+      <div class="tip">
+        <div class="tip-number">1</div>
+        <div class="tip-text">Llega al menos 10 minutos antes para comenzar relajado y sin apuros.</div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-number">2</div>
+        <div class="tip-text">Evita comer comidas pesadas antes del tratamiento.</div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-number">3</div>
+        <div class="tip-text">Trae ropa cómoda y liviana, idealmente una muda extra si lo deseas.</div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-number">4</div>
+        <div class="tip-text">Apaga o silencia tu celular para mantener la atmósfera de tranquilidad.</div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-number">5</div>
+        <div class="tip-text">Hidratate bien antes y después del tratamiento.</div>
+      </div>
+
+    </section>
+
+    <div class="calendar-container">
+      <div class="calendar-header">
+        <button id="prevMonth">◀</button>
+        <span id="monthYear"></span>
+        <button id="nextMonth">▶</button>
+      </div>
+      <div class="calendar" id="calendar"></div>
+    </div>
+
+    <div class="turnos" id="turnos"></div>
+
+    <div id="payment_method_form"></div>
+
+  </main>
+
+
+  <footer class="footer-spa">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3 class="footer-title">SPA</h3>
+        <ul class="footer-links">
+          <li><a href="#">Sobre nosotros</a></li>
+          <li><a href="/pages/servicios.html">Servicios</a></li>
+          <li><a href="/pages/contacto.html">Contacto</a></li>
+
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3 class="footer-title">CONTACTO</h3>
+        <p class="footer-email">spasentirsebien@gmail.com</p>
+        <p class="footer-phone">+54 362 4022456</p>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/luciano.yague.5" target="_blank"><img
+              src="/media/simbolo-de-la-aplicacion-de-facebook.png" alt="Facebook"></a>
+          <a href="https://www.instagram.com/lucianoyague_/" target="_blank"><img src="/media/logotipo-de-instagram.png"
+              alt="Instagram"></a>
+          <a href="https://x.com/lucianoy11?s=11" target="_blank"><img src="/media/gorjeo.png" alt="Twitter"></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3 class="footer-title">UBICACIÓN</h3>
+        <address class="footer-address">
+          Jujuy 1020<br>
+          Resistencia, Chaco<br>
+          Argentina<br>
+
+        </address>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; SpaSentirseBien, 2025. All Rights Reserved.</p>
+    </div>
+    <div class="info_deequipo">
+      <div class="imagenynombre">
+        <div><img src="/media/WhatsApp Image 2025-05-09 at 08.38.04 (1).jpeg" alt=""></div>
+        <div class="titulo_team">
+          <h3>© Chaya Team</h3>
+        </div>
+      </div>
+      <div class="nombresintegrantes">
+        <h3>Rudaz, Lautaro</h3>
+        <h3>Zeniquel, Federico</h3>
+        <h3>Rudaz, Ulises</h3>
+      </div>
+
+    </div>
+
+    </div>
+  </footer>
+
+  <script src="/js/components.js"></script>
+  <script>
+    function toggleMenu() {
+      const menu = document.querySelector('.div_items');
+      if (menu.style.transform === 'translateX(0%)') {
+        menu.style.transform = 'translateX(-100%)';
+      } else {
+        menu.style.transform = 'translateX(0%)';
+        menu.style.display = 'flex'; // Por si no estaba visible
+      }
+    }
+  </script>
+  
+  <script type="module" src="/js/calendario.js"></script>
+  <script src="/js/turnos.js"></script>
+</body>
+
+</html>

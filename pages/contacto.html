@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentirse Bien - Contacto </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/media/icono_oficial.png" type="image/x-icon">
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <main>
+        <div class="main_turnos">
+            <div class="titulo_turnos">
+                <h2>Contáctanos</h2>
+            </div>
+
+            <div class="turno_sectionuno">
+
+                <div class="form-container">
+                    <form id="form_contacto">
+                        <div class="form-row">
+                          <div class="form-group">
+                            <label for="name">Nombre *</label>
+                            <input type="text" id="name" placeholder="Ex. John Doe" required />
+                          </div>
+                          <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" placeholder="ejemplo@gmail.com" required />
+                          </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 15px;">
+                          <label for="subject">Asunto *</label>
+                          <input type="text" id="subject" placeholder="Introducir asunto" required />
+                        </div>
+                        <div class="form-group">
+                          <label for="message">Mensaje *</label>
+                          <textarea id="message" placeholder="Deja tu mensaje aqui" required></textarea>
+                        </div>
+                        <button type="submit" class="boton_turnos">Enviar mensaje</button>
+                      </form>
+                  </div>
+
+                
+            </div>
+
+            <div class="turno_sectiondos">
+                <div class="info_turnos">
+                    <div class="card-container">
+                        <div class="info-card">
+                          <img src="/media/correo-electronico.png" alt="Address Icon" />
+                          <h3>Correo</h3>
+                          <p>spasentirsebien@gmail.com</p>
+                        </div>
+                        <div class="info-card">
+                          <img src="/media/telefono-movil.png" alt="Phone Icon" />
+                          <h3>Celular</h3>
+                          <p>+54 362 5156138</p>
+                        </div>
+                        <div class="info-card">
+                          <img src="/media/pasador-de-ubicacion.png" alt="Email Icon" />
+                          <h3>Ubicación</h3>
+                          <p>Jujuy 1060 <br>Resistencia, Chaco</p>
+                        </div>
+                    </div>
+                </div>    
+                <div class="mapa_turno">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3540.70176952451!2d-59.00358672364301!3d-27.447403615758244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94450c7cd313ed45%3A0x496a02ebe5e53873!2sJujuy%201060%2C%20H3506AFE%20Resistencia%2C%20Chaco!5e0!3m2!1ses!2sar!4v1745340722998!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+        </div>
+        
+    </main>
+
+     
+    <footer class="footer-spa">
+        <div class="footer-container">
+          <div class="footer-section">
+            <h3 class="footer-title">SPA</h3>
+            <ul class="footer-links">
+              <li><a href="#">Sobre nosotros</a></li>
+              <li><a href="/pages/servicios.html">Servicios</a></li>
+              <li><a href="/pages/contacto.html">Contacto</a></li>
+              
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3 class="footer-title">CONTACTO</h3>
+            <p class="footer-email">spasentirsebien@gmail.com</p>
+            <p class="footer-phone">+54 362 4022456</p>
+            <div class="footer-socials">
+              <a href="https://www.facebook.com/luciano.yague.5" target="_blank"><img src="/media/simbolo-de-la-aplicacion-de-facebook.png" alt="Facebook"></a>
+              <a href="https://www.instagram.com/lucianoyague_/" target="_blank"><img src="/media/logotipo-de-instagram.png" alt="Instagram"></a>
+              <a href="https://x.com/lucianoy11?s=11" target="_blank"><img src="/media/gorjeo.png" alt="Twitter"></a>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h3 class="footer-title">UBICACIÓN</h3>
+            <address class="footer-address">
+              Jujuy 1020<br>
+              Resistencia, Chaco<br>
+              Argentina<br>
+              
+            </address>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; SpaSentirseBien, 2025. All Rights Reserved.</p>
+        </div>
+        <div class="info_deequipo">
+            <div class="imagenynombre">
+                <div><img src="/media/WhatsApp Image 2025-05-09 at 08.38.04 (1).jpeg" alt=""></div>
+                <div class="titulo_team"><h3>© Chaya Team</h3></div>
+            </div>
+            <div class="nombresintegrantes">
+                <h3>Rudaz, Lautaro</h3>
+                <h3>Zeniquel, Federico</h3>
+                <h3>Rudaz, Ulises</h3>
+            </div>
+            
+        </div>
+</footer>
+    <script src="/js/components.js"></script>
+    <script type="module" src="/js/form-contacto.js"></script>
+    <script>
+        function toggleMenu() {
+          const menu = document.querySelector('.div_items');
+          if (menu.style.transform === 'translateX(0%)') {
+            menu.style.transform = 'translateX(-100%)';
+          } else {
+            menu.style.transform = 'translateX(0%)';
+            menu.style.display = 'flex'; // Por si no estaba visible
+          }
+        }
+      </script>
+</body>

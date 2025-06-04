@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirmar Turno</title>
+</head>
+<body>
+  <h1>Confirmar Turno</h1>
+  <div id="detalleTurno"></div>
+  <button onclick="confirmarTurno()">Confirmar</button>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const turno = {
+      fecha: params.get("fecha"),
+      hora: params.get("hora"),
+      profesional: params.get("profesional"),
+      duracion: params.get("duracion"),
+      modalidad: params.get("modalidad")
+    };
+
+    const contenedor = document.getElementById("detalleTurno");
+    contenedor.innerHTML = `
+      <p><strong>Fecha:</strong> ${turno.fecha}</p>
+      <p><strong>Hora:</strong> ${turno.hora}</p>
+      <p><strong>Profesional:</strong> ${turno.profesional}</p>
+      <p><strong>Duración:</strong> ${turno.duracion}</p>
+      <p><strong>Modalidad:</strong> ${turno.modalidad}</p>
+    `;
+
+    function confirmarTurno() {
+      let turnosGuardados = JSON.parse(localStorage.getItem("misTurnos")) || [];
+
+      // Evitar duplicados
+      const existe = turnosGuardados.some(t =>
+        t.fecha === turno.fecha &&
+        t.hora === turno.hora &&
+        t.profesional === turno.profesional
+      );
+
+      if (!existe) {
+        turnosGuardados.push(turno);
+        localStorage.setItem("misTurnos", JSON.stringify(turnosGuardados));
+        alert("Turno confirmado y guardado en 'Mis Turnos'");
+        window.location.href = "/index.html"; // Redirigir si querés
+      } else {
+        alert("Este turno ya está guardado.");
+        window.location.href = "misturnos.html";
+      }
+    }
+  </script>
+</body>
+</html>

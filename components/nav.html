@@ -1,0 +1,54 @@
+<header class="header_propiedades">
+  <nav>
+    <div class="div_nav">
+      <div>
+        <img src="/media/icono_oficial.png" alt="" class="icono_nav" />
+      </div>
+
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+      <div class="div_items">
+        <div>
+          <a href="/index.html">INICIO</a>
+        </div>
+
+        <div>
+          <a href="/pages/servicios.html">SERVICIOS</a>
+        </div>
+
+        <div>
+          <a href="/pages/contacto.html">CONTACTO</a>
+        </div>
+        <div>
+          <a href="/pages/noticias.html">NOTICIAS</a>
+        </div>
+        <div>
+          <a href="/pages/turnos.html">TURNOS</a>
+        </div>
+        <div class="misturnos_nav" id="misturnos">
+          <a href="/pages/misturnos.html">MIS TURNOS</a>
+        </div>
+        <div id="btn_logout">
+          <a href="#">CERRAR SESIÓN</a>
+        </div>
+      </div>
+
+      <div class="login">
+        <div class="login_img">
+          <a href="/pages/sesion.html"
+            ><img src="/media/usuario.png" alt=""
+          /></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    console.log("hola");
+
+    document.getElementById("btn_logout").addEventListener("click", () => {
+      localStorage.removeItem("user");
+      window.location.href = "/pages/sesion.html";
+    });
+  </script>
+</header>
