@@ -100,4 +100,3 @@ const session = localStorage.getItem("session");
 const tokenPayload = decodeJWT(session);
 
 document.getElementById('turnos_title').innerHTML = `${tokenPayload.role === 'ADMIN' ? 'Todos los' : 'Mis'} turnos`;
-

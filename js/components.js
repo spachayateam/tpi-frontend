@@ -28,7 +28,7 @@ function loadNav() {
                 window.location.href = '/pages/sesion.html';
             });
 
-        })   
+        })
         .catch(error => {
             console.error('Error cargando la barra de navegación:', error);
         });
