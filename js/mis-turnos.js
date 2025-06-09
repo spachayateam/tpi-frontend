@@ -1,8 +1,10 @@
 import { deleteTurno, getTurnos } from "./api.js";
+import { decodeJWT } from "./jwt-decode.js";
 
 async function obtenerTurnos() {
   try {
     const turnos = await getTurnos();
+    console.log(turnos);
     return turnos;
   } catch (error) {
     if (error.status === 401) {
@@ -52,6 +54,7 @@ function mostrarTurnos(turnosGuardados = []) {
       <p><strong>Profesional:</strong> ${turno.professional}</p>
       <p><strong>Duración:</strong> ${turno.duration}</p>
       <p><strong>Modalidad:</strong> ${turno.mode}</p>
+      <p style="padding-top: 10px; font-weight: bold; color: blue;">Cliente: ${turno.name}</p>
       <button id="delete-${turno.token}">Eliminar</button>
     `;
 
@@ -92,3 +95,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const turnos = await obtenerTurnos();
   mostrarTurnos(turnos);
 });
+
+const session = localStorage.getItem("session");
+const tokenPayload = decodeJWT(session);
+
+document.getElementById('turnos_title').innerHTML = `${tokenPayload.role === 'ADMIN' ? 'Todos los' : 'Mis'} turnos`;
+

@@ -1,3 +1,5 @@
+import { decodeJWT } from "./jwt-decode.js";
+
 // Función para cargar la barra de navegación
 function loadNav() {
     fetch('/components/nav.html')  // Ruta del archivo nav.html
@@ -8,6 +10,15 @@ function loadNav() {
             if (!session) {
                 document.getElementById('misturnos').style.display = 'none';
                 document.getElementById('btn_logout').style.display = 'none';
+                document.getElementById('btn_admin').style.display = 'none';
+                return;
+            }
+
+            const tokenPayload = decodeJWT(session);
+
+            const isADmin = tokenPayload.role === 'ADMIN';
+            if (!isADmin) {
+                document.getElementById('btn_admin').style.display = 'none';
             }
 
             document.getElementById('btn_logout').addEventListener('click', () => {
@@ -17,7 +28,7 @@ function loadNav() {
                 window.location.href = '/pages/sesion.html';
             });
 
-        })
+        })   
         .catch(error => {
             console.error('Error cargando la barra de navegación:', error);
         });
