@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turnos a cargo</title>
+    <link rel="stylesheet" href="/css/turnosdehoy.css">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+</head>
+<body>
+<header class="header_propiedades">
+  <nav>
+    <div class="div_nav">
+      <div>
+        <img src="/media/icono_oficial.png" alt="" class="icono_nav" />
+      </div>
+
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+      <div class="div_items">
+        <div>
+          <a href="/index.html">INICIO</a>
+        </div>
+
+        <div>
+          <a href="/pages/servicios.html">SERVICIOS</a>
+        </div>
+
+        <div>
+          <a href="/pages/contacto.html">CONTACTO</a>
+        </div>
+        <div>
+          <a href="/pages/noticias.html">NOTICIAS</a>
+        </div>
+        <div>
+          <a href="/pages/turnos.html">TURNOS</a>
+        </div>
+        <div class="misturnos_nav" id="misturnos">
+          <a href="/pages/misturnos.html">MIS TURNOS</a>
+        </div>
+        <div id="btn_admin">
+          <a href="/pages/paneladmin.html">PANEL ADMIN</a>
+        </div>
+        <div id="btn_logout">
+          <a href="#">CERRAR SESIÓN</a>
+        </div>
+      </div>
+
+      <div class="login">
+        <div class="login_img">
+          <a href="/pages/sesion.html"
+            ><img src="/media/usuario.png" alt=""
+          /></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+ 
+</header>
+
+    <main>
+
+        <section class="bienvenida">
+            <div class="hola-prof">
+                <h2>Hola, Dr. Chahain</h2>
+                <h4>Este espacio está destinado exclusivamente para que usted pueda visualizar los turnos disponibles asignados en determinados días de la semana y del mes.</h4>
+            </div>
+        </section>
+
+ <div class="calx-header">
+    <span class="calx-arrow" onclick="cambiarMes(-1)">&#10094;</span>
+    <span id="calxMes">Mes Año</span>
+    <span class="calx-arrow" onclick="cambiarMes(1)">&#10095;</span>
+  </div>
+
+  <div class="calx-carousel-wrapper">
+    <span class="car-arrow" onclick="moverDias(-1)">&#10094;</span>
+    <div class="calx-carousel">
+      <div class="calx-dias" id="calxDias">
+        <!-- Días dinámicos -->
+      </div>
+    </div>
+    <span class="car-arrow" onclick="moverDias(1)">&#10095;</span>
+  </div>
+
+  <div class="calx-turnos" id="calxTurnos">
+    <p>Selecciona un día para ver los turnos disponibles.</p>
+  </div>
+
+
+
+    </main>
+
+    
+    <footer class="footer-spa">
+        <div class="footer-container">
+          <div class="footer-section">
+            <h3 class="footer-title">SPA</h3>
+            <ul class="footer-links">
+              <li><a href="#">Sobre nosotros</a></li>
+              <li><a href="/pages/servicios.html">Servicios</a></li>
+              <li><a href="/pages/contacto.html">Contacto</a></li>
+              
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3 class="footer-title">CONTACTO</h3>
+            <p class="footer-email">spasentirsebien@gmail.com</p>
+            <p class="footer-phone">+54 362 4022456</p>
+            <div class="footer-socials">
+              <a href="https://www.facebook.com/luciano.yague.5" target="_blank"><img src="/media/simbolo-de-la-aplicacion-de-facebook.png" alt="Facebook"></a>
+              <a href="https://www.instagram.com/lucianoyague_/" target="_blank"><img src="/media/logotipo-de-instagram.png" alt="Instagram"></a>
+              <a href="https://x.com/lucianoy11?s=11" target="_blank"><img src="/media/gorjeo.png" alt="Twitter"></a>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h3 class="footer-title">UBICACIÓN</h3>
+            <address class="footer-address">
+              Jujuy 1020<br>
+              Resistencia, Chaco<br>
+              Argentina<br>
+              
+            </address>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; SpaSentirseBien, 2025. All Rights Reserved.</p>
+        </div>
+        <div class="info_deequipo">
+          <div class="imagenynombre">
+              <div><img src="/media/WhatsApp Image 2025-05-09 at 08.38.04 (1).jpeg" alt=""></div>
+              <div class="titulo_team"><h3>© Chaya Team</h3></div>
+          </div>
+          <div class="nombresintegrantes">
+              <h3>Rudaz, Lautaro</h3>
+              <h3>Zeniquel, Federico</h3>
+              <h3>Rudaz, Ulises</h3>
+          </div>
+          
+      </div>
+    </footer>
+
+
+<script type="module" src="/js/components.js"></script>
+    <script type="module" src="/js/form-contacto.js"></script>
+    <script>
+        function toggleMenu() {
+          const menu = document.querySelector('.div_items');
+          if (menu.style.transform === 'translateX(0%)') {
+            menu.style.transform = 'translateX(-100%)';
+          } else {
+            menu.style.transform = 'translateX(0%)';
+            menu.style.display = 'flex'; // Por si no estaba visible
+          }
+        }
+      </script>
+
+<script>
+    const calxDias = document.getElementById("calxDias");
+    const calxTurnos = document.getElementById("calxTurnos");
+    const calxMes = document.getElementById("calxMes");
+
+    const servicios = ["Masajes", "Tratamiento Facial", "Tratamiento de Belleza"];
+    const pagos = ["Efectivo", "Transferencia"];
+    const profesionales = ["Juan Pérez", "Ana López", "Carlos Díaz", "Laura Méndez"];
+    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+                   "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+    let fechaActual = new Date();
+    let diasDelMes = [];
+    let offset = 0;
+    let diasVisibles = 6;
+
+    function calcularDiasVisibles() {
+      const ancho = window.innerWidth;
+      if (ancho <= 480) {
+        diasVisibles = 2;
+      } else if (ancho <= 768) {
+        diasVisibles = 3;
+      } else {
+        diasVisibles = 6;
+      }
+      document.documentElement.style.setProperty('--visible-dias', diasVisibles);
+    }
+
+    function actualizarMes() {
+      const año = fechaActual.getFullYear();
+      const mes = fechaActual.getMonth();
+      calxMes.textContent = `${meses[mes]} ${año}`;
+      const ultimoDia = new Date(año, mes + 1, 0).getDate();
+
+      diasDelMes = [];
+      for (let d = 1; d <= ultimoDia; d++) {
+        const fecha = new Date(año, mes, d);
+        const dia = fecha.toLocaleDateString("es-ES", { weekday: "short" });
+        diasDelMes.push({
+          fecha: fecha.toISOString().split("T")[0],
+          texto: `${dia} ${d}`
+        });
+      }
+      offset = 0;
+      renderDias();
+    }
+
+    function renderDias() {
+      calxDias.innerHTML = "";
+      const visibles = diasDelMes.slice(offset, offset + diasVisibles);
+      visibles.forEach(dia => {
+        const div = document.createElement("div");
+        div.className = "calx-day";
+        div.innerHTML = `<div>${dia.texto}</div>`;
+        div.dataset.fecha = dia.fecha;
+
+        div.addEventListener("click", () => {
+          document.querySelectorAll(".calx-day").forEach(el => el.classList.remove("active"));
+          div.classList.add("active");
+          mostrarTurnos(new Date(dia.fecha));
+        });
+
+        calxDias.appendChild(div);
+      });
+    }
+
+    function moverDias(direccion) {
+      const nuevoOffset = offset + direccion;
+      if (nuevoOffset >= 0 && nuevoOffset <= diasDelMes.length - diasVisibles) {
+        offset = nuevoOffset;
+        renderDias();
+      }
+    }
+
+    function cambiarMes(direccion) {
+      fechaActual.setMonth(fechaActual.getMonth() + direccion);
+      actualizarMes();
+    }
+
+    function mostrarTurnos(fecha) {
+      const fechaTexto = fecha.toISOString().split("T")[0];
+      let html = `<h3>Turnos para el ${fechaTexto}</h3>`;
+      const cantidad = Math.floor(Math.random() * 4) + 1;
+
+      for (let i = 0; i < cantidad; i++) {
+        const hora = `${9 + i}:00`;
+        const profesional = profesionales[Math.floor(Math.random() * profesionales.length)];
+        const servicio = servicios[Math.floor(Math.random() * servicios.length)];
+        const pago = pagos[Math.floor(Math.random() * pagos.length)];
+
+        html += `
+          <div class="calx-turno">
+            <div><span class="calx-label">Hora:</span> ${hora}</div>
+            <div><span class="calx-label">Profesional:</span> ${profesional}</div>
+            <div><span class="calx-label">Servicio:</span> ${servicio}</div>
+            <div><span class="calx-label">Pago:</span> ${pago}</div>
+          </div>
+        `;
+      }
+
+      calxTurnos.innerHTML = html;
+    }
+
+    // Recalcular días visibles al cambiar tamaño
+    window.addEventListener("resize", () => {
+      calcularDiasVisibles();
+      renderDias();
+    });
+
+    // Inicializar
+    calcularDiasVisibles();
+    actualizarMes();
+  </script>
+</body>
+</html>
