@@ -13,7 +13,7 @@
     <main>
         <div class="main_sesion">
             <div class="titulo_sesion">
-                <h2>¡Formá parte de nosotros!</h2>
+                <h2>Panel de Profesionales</h2>
             </div>
             <div class="icono_sesion">
                 <img src="/media/icono_oficial.png" alt="">
@@ -22,7 +22,7 @@
 
                 <div class="login-container">
                     <h2>Iniciar sesión</h2>
-                    <form id="form_login">
+                    <form id="form_login_profesional">
                       <label for="email">E-mail</label>
                       <input type="email" id="emaillogin" name="email" required>
                 
@@ -31,13 +31,9 @@
                 
                       <button type="submit" class="btn-login">Iniciar sesión</button>
                     </form>
-
-                    <div style="margin-top: 15px; font-size: 16px;">
-                        ¿Sos profesional y estás registrado? <a style="text-decoration: none; color: #1cb5e0;" href="/pages/sesionprofesional.html">Inicia sesión aquí</a>
-                    </div>
                 </div>
                 
-                  <a href="/pages/registro.html"><button class="btn-create">Crear una cuenta</button></a>
+                  <a href="/pages/registroprofesional.html"><button class="btn-create">Crear una cuenta profesional</button></a>
  
         </div>
     </main>
@@ -91,7 +87,7 @@
         </div>
 
     <script type="module" src="/js/components.js"></script>
-    <script type="module" src="/js/form-login.js"></script>
+    <script type="module" src="/js/form-login-profesional.js"></script>
     <script>
         function toggleMenu() {
           const menu = document.querySelector('.div_items');

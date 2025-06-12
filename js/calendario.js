@@ -1,4 +1,8 @@
 import { saveTurno } from "./api.js";
+import { listaTurnos } from "./constants.js";
+
+const { DateTime } = luxon;
+const now = DateTime.now().startOf("day");
 
 const calendar = document.getElementById("calendar");
 const monthYear = document.getElementById("monthYear");
@@ -55,21 +59,37 @@ function renderCalendar() {
   }
 
   for (let day = 1; day <= lastDate; day++) {
+    const jsDate = new Date(year, month, day);
+    
+    const luxonDay = DateTime.fromJSDate(jsDate).startOf("day");
+    const diffDay = now.diff(luxonDay, "days").days;
+    const selectedDate = diffDay < -1 && diffDay >= -2
+    
+    const isPastToAvailableDate = diffDay > -2;
+    
     const dayDiv = document.createElement("div");
-    dayDiv.classList.add("day");
+    dayDiv.classList.add("day")
     dayDiv.id = `day-${day}`;
     dayDiv.textContent = day;
 
-    if (day === todayDate && month === todayMonth && year === todayYear) {
+    if (selectedDate) {
       dayDiv.classList.add("selected");
       mostrarTurnos(todayDate, todayMonth + 1, todayYear);
     }
 
-    dayDiv.addEventListener("click", () => {
-      document.querySelectorAll(".day").forEach(el => el.classList.remove("selected"));
-      dayDiv.classList.add("selected");
-      mostrarTurnos(day, month + 1, year);
-    });
+    if (isPastToAvailableDate) {
+      dayDiv.style.color = "#ccc";
+      dayDiv.style.cursor = "not-allowed";
+      dayDiv.style.opacity = "0.8";
+    }
+
+    if (!isPastToAvailableDate) {
+      dayDiv.addEventListener("click", () => {
+        document.querySelectorAll(".day").forEach(el => el.classList.remove("selected"));
+        dayDiv.classList.add("selected");
+        mostrarTurnos(day, month + 1, year);
+      });
+    }
 
     calendar.appendChild(dayDiv);
   }
@@ -90,22 +110,9 @@ function mostrarTurnos(dia, mes, anio) {
 
     const profesional = seleccionado.profesional;
     const modalidad = seleccionado.servicio;
+    const payout = seleccionado.payout;
   
-    const turnosEjemplo = [
-      {
-        hora: "09:00 AM - 10:00 AM",
-        profesional,
-        duracion: "60 minutos",
-        modalidad,
-      },
-      { hora: "10:00 AM - 11:00 AM", profesional, duracion: "60 minutos", modalidad },
-      { hora: "11:00 AM - 12:00 PM", profesional, duracion: "60 minutos", modalidad },
-      { hora: "12:00 PM - 13:00 PM", profesional, duracion: "60 minutos", modalidad },
-      { hora: "13:00 PM - 14:00 PM", profesional, duracion: "60 minutos", modalidad },
-      { hora: "14:00 PM - 15:00 PM", profesional, duracion: "60 minutos", modalidad },
-      { hora: "15:00 PM - 16:00 PM", profesional, duracion: "60 minutos", modalidad },
-      { hora: "16:00 PM - 17:00 PM", profesional, duracion: "60 minutos", modalidad },
-    ];
+    const turnosEjemplo = listaTurnos(profesional);
 
     // const { DateTime } = luxon
 
@@ -117,7 +124,8 @@ function mostrarTurnos(dia, mes, anio) {
         hora: t.hora,
         profesional: t.profesional,
         duracion: t.duracion,
-        modalidad: t.modalidad
+        modalidad: t.modalidad,
+        payout,
       };
 
       const turnoDiv = document.createElement("div");
@@ -176,6 +184,7 @@ function mostrarTurnos(dia, mes, anio) {
       <p>Profesional: ${turno.profesional}</p>
       <p>Duración: ${turno.duracion}</p>
       <p>Modalidad: ${turno.modalidad}</p>
+      <p>Pago: ${turno.payout}</p>
     `;
     form.appendChild(turnoDetail);
 

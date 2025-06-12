@@ -115,6 +115,8 @@
   transition: transform 0.2s ease;
   cursor: pointer;
   min-height: 90px; /* hace las tarjetas más altas */
+  text-decoration: none;
+  color: black;
 }
 
 .accion-card:hover {
@@ -256,7 +258,6 @@
   flex-direction: row;
   gap: 20px;
 }
-
 
 
 

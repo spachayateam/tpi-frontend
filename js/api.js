@@ -1,4 +1,4 @@
-const endpoint = 'http://localhost:3000/api';
+import endpoint from "./endpoint.js";
 
 export async function registrarContacto(params = {}) {
   const { name, email, subject, message } = params;
@@ -18,6 +18,30 @@ export async function registrarContacto(params = {}) {
     throw {
       status: response.status,
       message: response.statusText,
+    };
+  }
+
+  return response.json();
+}
+
+export async function loginProfesional(email, password) {
+  const response = await fetch(`${endpoint}/professional/auth/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+
+    throw {
+      status: response.status,
+      message: error.message,
     };
   }
 
@@ -53,6 +77,30 @@ export async function registrarUsuario(params = {}) {
   const body = { nombre, email, password, phone };
 
   const response = await fetch(`${endpoint}/users/auth/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+
+    throw {
+      status: response.status,
+      message: response.statusText,
+    };
+  }
+
+  return response.json();
+}
+
+export async function registrarProfesional(params = {}) {
+  const { nombre, email, password, phone, section, age } = params;
+
+  const body = { nombre, email, password, phone, section, age };
+
+  const response = await fetch(`${endpoint}/professional/auth/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

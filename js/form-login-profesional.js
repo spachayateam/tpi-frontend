@@ -1,4 +1,4 @@
-import { login } from "./api.js";
+import { loginProfesional } from "./api.js";
 
 document.addEventListener('DOMContentLoaded', () => {
   const session = localStorage.getItem('session');
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
   
-  const form = document.getElementById('form_login');
+  const form = document.getElementById('form_login_profesional');
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -16,21 +16,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const password = document.getElementById('passwordlogin').value.trim();
     
     try {
-      const response = await login(email, password);
+      const response = await loginProfesional(email, password);
 
       localStorage.setItem('session', response?.accessToken);
-      window.location.href = '/pages/turnos.html';
+      window.location.href = '/pages/misturnos.html';
       
       alert('Sesión iniciada con éxito');
     } catch (error) {
       console.error(error.message);
 
-      if (error.status === 401) {
-        alert('Email o contraseña incorrectos');
-        return;
-      }
+      // if (error.status === 401) {
+      //   alert('Email o contraseña incorrectos');
+      //   return;
+      // }
 
-      alert('Error al iniciar sesión');
+      alert(error.message ?? 'Error al iniciar sesión');
     }
     
   });

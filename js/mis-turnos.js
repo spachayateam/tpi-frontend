@@ -55,7 +55,11 @@ function mostrarTurnos(turnosGuardados = []) {
       <p><strong>Duración:</strong> ${turno.duration}</p>
       <p><strong>Modalidad:</strong> ${turno.mode}</p>
       <p style="padding-top: 10px; font-weight: bold; color: blue;">Cliente: ${turno.name}</p>
-      <button id="delete-${turno.token}">Eliminar</button>
+      ${turno.state === 'PENDIENTE' ? '<p style="padding-top: 10px; font-weight: bold; color: orange;">Estado: Pendiente</p>' : ''}
+      ${turno.state === 'ATENDIDO' ? '<p style="padding-top: 10px; font-weight: bold; color: green;">Estado: Atendido</p>' : ''}
+      ${turno.state === 'CANCELADO' ? '<p style="padding-top: 10px; font-weight: bold; color: gray;">Estado: Cancelado</p>' : ''}
+      ${turno.state === 'VENCIDO' ? '<p style="padding-top: 10px; font-weight: bold; color: red;">Estado: Vencido</p>' : ''}
+      <button style="display: ${turno.state === 'CANCELADO' ? 'none' : 'block'}" id="delete-${turno.token}">Eliminar</button>
     `;
 
     contenedorTurnos.appendChild(turnoDiv);

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentirse bien - Servicios </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="media/icono_oficial.png" type="image/x-icon">
+</head>
+
+<body>
+    <main>
+        <div style="width: 100%; display: flex; justify-content: center;">
+            <a href="/pages/paneladmin.html" style="font-size: 20px; font-weight: bold; display: flex; padding-left: 20px; padding-right: 20px; border: 1px solid black; border-radius: 60px; justify-content: center; align-items: center; text-decoration: none; color: black">VOLVER</a>
+            <button class="new-service" id="add-service">Agregar nuevo servicio</button>
+            <div></div>
+        </div>
+
+        <div id="add-panel" class="add-panel hidden-add">
+            <h2>Agregar Servicio</h2>
+            <form id="add-form">
+                <input type="hidden" id="add-id">
+
+                <div>
+                    <label for="add-categoria">Categoría:</label>
+                    <input type="text" id="add-categoria">
+                </div>
+
+                <div>
+                    <label for="add-precio">Precio:</label>
+                    <input type="text" id="add-precio">
+                </div>
+
+                <div>
+                    <label for="add-descripcion">Descripción:</label>
+                    <textarea id="add-descripcion"></textarea>
+                </div>
+
+                <div>
+                    <label for="add-imagen">Imagen:</label>
+                    <input type="text" id="add-imagen">
+                </div>
+
+                <div>
+                    <label for="add-profesional">Profesional:</label>
+                    <input type="text" id="add-profesional">
+                </div>
+
+                <div class="add-buttons">
+                    <button type="submit">Agregar Servicio</button>
+                    <button type="button" id="cancel-add">Cancelar</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div style="padding: 40px;" class="blog-grid" id="servicios"></div>
+
+        <div id="edit-panel" class="edit-panel hidden">
+            <h2>Editar Servicio</h2>
+            <form id="edit-form">
+                <input type="hidden" id="edit-id">
+
+                <div>
+                    <label for="edit-categoria">Categoría:</label>
+                    <input type="text" id="edit-categoria">
+                </div>
+
+                <div>
+                    <label for="edit-precio">Precio:</label>
+                    <input type="text" id="edit-precio">
+                </div>
+
+                <div>
+                    <label for="edit-descripcion">Descripción:</label>
+                    <textarea id="edit-descripcion"></textarea>
+                </div>
+
+                <div>
+                    <label for="edit-imagen">Imagen:</label>
+                    <input type="text" id="edit-imagen">
+                </div>
+
+                <div>
+                    <label for="edit-profesional">Profesional:</label>
+                    <input type="text" id="edit-profesional">
+                </div>
+
+                <div class="edit-buttons">
+                    <button type="submit">Guardar Cambios</button>
+                    <button type="button" id="cancel-edit">Cancelar</button>
+                </div>
+            </form>
+
+        </div>
+
+    </main>
+    <footer class="footer-spa">
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; SpaSentirseBien, 2025. All Rights Reserved.</p>
+        </div>
+        <div class="info_deequipo">
+            <div class="imagenynombre">
+                <div><img src="/media/WhatsApp Image 2025-05-09 at 08.38.04 (1).jpeg" alt=""></div>
+                <div class="titulo_team">
+                    <h3>© Chaya Team</h3>
+                </div>
+            </div>
+            <div class="nombresintegrantes">
+                <h3>Rudaz, Lautaro</h3>
+                <h3>Zeniquel, Federico</h3>
+                <h3>Rudaz, Ulises</h3>
+            </div>
+
+        </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/js/admin.js"></script>
+
+</body>
