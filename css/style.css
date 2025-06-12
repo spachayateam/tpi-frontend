@@ -1702,6 +1702,45 @@ section.tips-spa h2 {
 }
 
 
+.gestion-profesionales{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  margin-top: 60px;
+}
+
+.primer-cuadro{
+  background-color: #f775b6;
+   border-radius: 0px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 1rem;
+   border-radius: 20px;
+}
+
+.primer-cuadro a{
+  text-decoration: none;
+  color: #000;
+}
+
+.segundo-cuadro{
+   background-color: #f775b6;
+   border-radius: 0px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 1rem;
+   border-radius: 20px;
+}
+
+
+.segundo-cuadro a{
+  text-decoration: none;
+  color: #000;
+}
+
+
+.boton-volver{
+  display: flex;
+
+}
 
 
 

@@ -99,8 +99,9 @@
 }
 
 .acciones-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  display: flex;
+  justify-content: center;
+  flex-direction:column ;
   gap: 24px;
 }
 
@@ -259,7 +260,9 @@
   gap: 20px;
 }
 
-
+.volver-paneladmin{
+  background-color:#0f766e ;
+}
 
 
 
