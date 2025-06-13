@@ -4,7 +4,6 @@ import { decodeJWT } from "./jwt-decode.js";
 async function obtenerTurnos() {
   try {
     const turnos = await getTurnos();
-    console.log(turnos);
     return turnos;
   } catch (error) {
     if (error.status === 401) {

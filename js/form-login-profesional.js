@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await loginProfesional(email, password);
 
       localStorage.setItem('session', response?.accessToken);
-      window.location.href = '/pages/misturnos.html';
+      window.location.href = '/pages/panel.html';
       
       alert('Sesión iniciada con éxito');
     } catch (error) {

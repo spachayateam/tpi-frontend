@@ -10,15 +10,17 @@ function loadNav() {
             if (!session) {
                 document.getElementById('misturnos').style.display = 'none';
                 document.getElementById('btn_logout').style.display = 'none';
-                document.getElementById('btn_admin').style.display = 'none';
+                document.getElementById('btn_personal').style.display = 'none';
                 return;
             }
 
             const tokenPayload = decodeJWT(session);
 
             const isADmin = tokenPayload.role === 'ADMIN';
-            if (!isADmin) {
-                document.getElementById('btn_admin').style.display = 'none';
+            const isProfessional = tokenPayload.role === 'PROFESSIONAL';
+
+            if (!isADmin && !isProfessional) {
+                document.getElementById('btn_personal').style.display = 'none';
             }
 
             document.getElementById('btn_logout').addEventListener('click', () => {
