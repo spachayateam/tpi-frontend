@@ -230,7 +230,7 @@ function mostrarTurnos(dia, mes, anio) {
         
         await saveTurno(turno);
   
-        alert("Turno guardado");
+        alert("Turno guardado y comprobante enviado exitosamente");
         window.location.href = "/pages/misturnos.html";
         localStorage.removeItem("turno");
         localStorage.removeItem("servicio");
