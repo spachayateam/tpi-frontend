@@ -53,6 +53,7 @@ function mostrarTurnos(turnosGuardados = []) {
       <p><strong>Profesional:</strong> ${turno.professional}</p>
       <p><strong>Duración:</strong> ${turno.duration}</p>
       <p><strong>Modalidad:</strong> ${turno.mode}</p>
+      <p><strong>Servicio:</strong> ${turno.service}</p>
       <p style="padding-top: 10px; font-weight: bold; color: blue;">Cliente: ${turno.name}</p>
       ${turno.state === 'PENDIENTE' ? '<p style="padding-top: 10px; font-weight: bold; color: orange;">Estado: Pendiente</p>' : ''}
       ${turno.state === 'ATENDIDO' ? '<p style="padding-top: 10px; font-weight: bold; color: green;">Estado: Atendido</p>' : ''}

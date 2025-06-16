@@ -125,6 +125,7 @@ function mostrarTurnos(dia, mes, anio) {
         profesional: t.profesional,
         duracion: t.duracion,
         modalidad: t.modalidad,
+        servicio: t.servicio,
         payout,
       };
 
@@ -139,6 +140,7 @@ function mostrarTurnos(dia, mes, anio) {
           <p><strong>Profesional:</strong> ${t.profesional}</p>
           <p><strong>Duración:</strong> ${t.duracion}</p>
           <p><strong>Modalidad:</strong> ${t.modalidad}</p>
+          <p><strong>Servicio:</strong> ${t.servicio}</p>
           <p class="seleccionar-turno">Seleccionar turno</p>
         </div>
       `;
