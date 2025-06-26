@@ -4,9 +4,12 @@ import { decodeJWT } from "./jwt-decode.js";
 const user = decodeJWT(sessionStorage.getItem("session"));
 
 async function obtenerTurnos() {
+  const isProfessional = user.role === "PROFESSIONAL";
   
   try {
-    const turnos = await getTurnos();
+    const turnos = await getTurnos({
+      nextAppointments: isProfessional ? 1 : 0,
+    });
     return turnos;
   } catch (error) {
     if (error.status === 401) {

@@ -5,7 +5,7 @@ import endpoint from "./endpoint.js";
 async function getServices() {
   const response = await fetch(`${endpoint}/services`);
   const servicios = await response.json();
-
+  
   const grid = document.getElementById("blogGrid");
 
   servicios.forEach((servicio, index) => {
@@ -33,9 +33,11 @@ async function getServices() {
       const params = {
         servicio: servicio.categoria,
         profesional: servicio.professional,
+        professionalId: servicio.professionalId,
         payout: servicio.precio,
       };
-      localStorage.setItem("servicio", JSON.stringify(params));
+
+      sessionStorage.setItem("servicio", JSON.stringify(params));
 
         const today = new Date().getDate();
 

@@ -1,7 +1,7 @@
 import { decodeJWT } from "./jwt-decode.js";
 import endpoint from "./endpoint.js";
 
-const session = localStorage.getItem("session");
+const session = sessionStorage.getItem("session");
 const tokenPayload = decodeJWT(session);
 
 const isAdmin = tokenPayload.role === "ADMIN";
@@ -22,7 +22,7 @@ function setAccionesRapidas() {
           </a>
           <a class="accion-card" href="/pages/gestionarprofesionales.html">
             <span class="icono">🧑‍⚕️</span>
-            <span>Gesltionar profesionales</span>
+            <span>Gestionar profesionales</span>
           </a>
           <a class="accion-card" href="/pages/turnos.html">
             <span class="icono">📅</span>
@@ -38,11 +38,11 @@ function setAccionesRapidas() {
             <span class="icono">📅</span>
             <span>Historial de turnos</span>
           </a>
-          <a class="accion-card" href="#">
+          <a class="accion-card" href="/pages/historialclientes.html">
             <span class="icono">🧑‍⚕️</span>
             <span>Historial clientes</span>
           </a>
-          <a class="accion-card" href="#">
+          <a class="accion-card" href="/pages/proximos-turnos.html">
             <span class="icono">📅</span>
             <span>Próximos turnos</span>
           </a>
@@ -58,7 +58,6 @@ if (window.location.pathname === "/pages/panel.html") {
   setAccionesRapidas();
 }
 
-
 if (window.location.pathname === "/pages/gestionarservicios.html") {
   if (tokenPayload.role !== "ADMIN") {
     window.location.href = "/pages/panel.html";
@@ -67,15 +66,24 @@ if (window.location.pathname === "/pages/gestionarservicios.html") {
   async function getServices() {
     const response = await fetch(`${endpoint}/services`);
     const servicios = await response.json();
-  
+
     let totalServicios = document.querySelector("#services");
-  
+
     if (totalServicios) {
       document.querySelector("#services").innerHTML = servicios.length;
     }
-  
+
+    const getProssionalData = await fetch(`${endpoint}/professionals`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Role": `${tokenPayload.role}`,
+      },
+    });
+    const profesionales = await getProssionalData.json();
+
     const grid = document.getElementById("servicios");
-  
+
     servicios.forEach((servicio) => {
       const card = document.createElement("div");
       card.className = "blog-card";
@@ -91,22 +99,30 @@ if (window.location.pathname === "/pages/gestionarservicios.html") {
           </div>
         `;
       grid.appendChild(card);
-  
+
       document
         .getElementById(`button_service_${servicio.id}`)
         .addEventListener("click", function () {
           document.getElementById("edit-panel").classList.remove("hidden");
-  
+
           document.getElementById("edit-id").value = servicio.id;
           document.getElementById("edit-categoria").value = servicio.categoria;
           document.getElementById("edit-precio").value = servicio.precio;
           document.getElementById("edit-descripcion").value =
             servicio.descripcion;
           document.getElementById("edit-imagen").value = servicio.imagen;
-          document.getElementById("edit-profesional").value =
-            servicio.profesional;
+
+          const select = document.getElementById("edit-profesional");
+          select.innerHTML = "";
+          profesionales.forEach((profesional) => {
+            const selected = profesional.id === servicio.professionalId ? "selected" : "";
+            select.innerHTML += `
+        <option value="${profesional.id}" ${selected}>
+          ID: ${profesional.id} - ${profesional.name}
+        </option>`;
+          })
         });
-  
+
       document
         .getElementById(`button_service_remove_${servicio.id}`)
         .addEventListener("click", async () => {
@@ -114,19 +130,19 @@ if (window.location.pathname === "/pages/gestionarservicios.html") {
             `¿Estás seguro de que quieres borrar el servicio ${servicio.categoria}?`
           );
           if (!confirm) return;
-  
+
           const response = await fetch(`${endpoint}/services/${servicio.id}`, {
             method: "DELETE",
           });
           const data = await response.json();
-  
+
           if (!response.ok) {
             throw {
               status: response.status,
               message: response.statusText,
             };
           }
-  
+
           if (response.ok) {
             alert(data.message);
             window.location.reload();
@@ -134,23 +150,44 @@ if (window.location.pathname === "/pages/gestionarservicios.html") {
         });
     });
   }
-  
+
   getServices();
-  
+
   document.getElementById("add-service").addEventListener("click", () => {
+    async function getProfessionals() {
+      const response = await fetch(`${endpoint}/professionals`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Role": `${tokenPayload.role}`,
+        },
+      });
+      const profesionales = await response.json();
+
+      const select = document.getElementById("add-profesional");
+      select.innerHTML = "";
+      profesionales.forEach((profesional) => {
+        select.innerHTML += `
+        <option value="${profesional.id}">
+          ID: ${profesional.id} - ${profesional.name}
+        </option>`;
+      })
+    }
+
+    getProfessionals()
     document.getElementById("add-panel").classList.remove("hidden-add");
-  
+
     document.getElementById("add-panel").addEventListener("submit", async (e) => {
       e.preventDefault();
-  
+
       const newService = {
         categoria: document.getElementById("add-categoria").value,
         precio: document.getElementById("add-precio").value,
         descripcion: document.getElementById("add-descripcion").value,
         imagen: document.getElementById("add-imagen").value,
-        profesional: document.getElementById("add-profesional").value,
+        professionalId: document.getElementById("add-profesional").value,
       };
-  
+
       const response = await fetch(`${endpoint}/services`, {
         method: "POST",
         headers: {
@@ -159,33 +196,33 @@ if (window.location.pathname === "/pages/gestionarservicios.html") {
         body: JSON.stringify(newService),
       });
       const data = await response.json();
-  
+
       if (!response.ok) {
         throw {
           status: response.status,
           message: response.statusText,
         };
       }
-  
+
       if (response.ok) {
         alert(data.message);
         window.location.reload();
       }
     });
   });
-  
+
   document.getElementById("edit-form").addEventListener("submit", async (e) => {
     e.preventDefault();
-  
+
     const updatedService = {
       id: document.getElementById("edit-id").value,
       categoria: document.getElementById("edit-categoria").value,
       precio: document.getElementById("edit-precio").value,
       descripcion: document.getElementById("edit-descripcion").value,
       imagen: document.getElementById("edit-imagen").value,
-      profesional: document.getElementById("edit-profesional").value,
+      professionalId: document.getElementById("edit-profesional").value
     };
-  
+
     const response = await fetch(`${endpoint}/services/${updatedService.id}`, {
       method: "PUT",
       headers: {
@@ -194,25 +231,25 @@ if (window.location.pathname === "/pages/gestionarservicios.html") {
       body: JSON.stringify(updatedService),
     });
     const data = await response.json();
-  
+
     if (!response.ok) {
       throw {
         status: response.status,
         message: response.statusText,
       };
     }
-  
+
     if (response.ok) {
       alert(data.message);
       window.location.reload();
     }
     document.getElementById("edit-panel").classList.add("hidden");
   });
-  
+
   document.getElementById("cancel-edit").addEventListener("click", () => {
     document.getElementById("edit-panel").classList.add("hidden");
   });
-  
+
   document.getElementById("cancel-add").addEventListener("click", () => {
     document.getElementById("add-panel").classList.add("hidden-add");
   });

@@ -6,7 +6,7 @@ function loadNav() {
         .then(response => response.text())
         .then(data => {
             document.getElementById('navbar').innerHTML = data;
-            const session = localStorage.getItem('session');
+            const session = sessionStorage.getItem('session');
             if (!session) {
                 document.getElementById('misturnos').style.display = 'none';
                 document.getElementById('btn_logout').style.display = 'none';
@@ -26,7 +26,7 @@ function loadNav() {
             document.getElementById('btn_logout').addEventListener('click', () => {
                 const confirm = window.confirm('¿Estás seguro de cerrar sesión?');
                 if (!confirm) return;
-                localStorage.removeItem('session');
+                sessionStorage.removeItem('session');
                 window.location.href = '/pages/sesion.html';
             });
 

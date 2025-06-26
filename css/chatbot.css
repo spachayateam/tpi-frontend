@@ -1,0 +1,110 @@
+.chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.chatbot-toggle {
+  background-color: #f8c2dc;
+  color: #000;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background-image: url("/media/chat_icon.png");
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.chatbot-box {
+  display: none;
+  flex-direction: column;
+  width: 320px;
+  height: 450px; /* volvemos a height fijo para evitar que se rompa */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.chatbot-header {
+  background-color: #f8c2dc;
+  padding: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.chatbot-messages {
+  flex-grow: 1;
+  padding: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: calc(450px - 100px); /* ajusta altura disponible */
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  word-break: break-word;
+}
+
+.bot .bubble {
+  background: #e7f1ff;
+  color: #004080;
+  padding: 10px;
+  border-radius: 12px 12px 12px 0;
+  max-width: 80%;
+}
+
+.user .bubble {
+  background: #fde0f0;
+  color: #6a004d;
+  padding: 10px;
+  border-radius: 12px 12px 0 12px;
+  max-width: 80%;
+  margin-left: auto;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chatbot-input-container {
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding: 8px;
+  background-color: #fff;
+}
+
+.chatbot-input-container input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.chatbot-input-container button {
+  background-color: #f8c2dc;
+  border: none;
+  padding: 10px 15px;
+  margin-left: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}

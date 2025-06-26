@@ -120,7 +120,7 @@ export async function registrarProfesional(params = {}) {
 }
 
 export async function saveTurno(params) {
-  const token = localStorage.getItem('session');
+  const token = sessionStorage.getItem('session');
 
   const response = await fetch(`${endpoint}/appointments`, {
     method: 'POST',
@@ -131,6 +131,7 @@ export async function saveTurno(params) {
     body: JSON.stringify({
       date: params.fecha,
       time: params.hora,
+      professionalId: params.professionalId,
       professional: params.profesional,
       duration: '60 minutos',
       mode: params.modalidad,
@@ -151,10 +152,12 @@ export async function saveTurno(params) {
   return response.json();
 }
 
-export async function getTurnos() {
-  const token = localStorage.getItem('session');
+export async function getTurnos(parmas = {
+  nextAppointments: 0,
+}) {
+  const token = sessionStorage.getItem('session');
 
-  const response = await fetch(`${endpoint}/appointments`, {
+  const response = await fetch(`${endpoint}/appointments?nextAppointments=${parmas.nextAppointments}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -174,10 +177,32 @@ export async function getTurnos() {
 }
 
 export async function deleteTurno(turnoToken) {
-  const token = localStorage.getItem('session');
+  const token = sessionStorage.getItem('session');
 
   const response = await fetch(`${endpoint}/appointments/${turnoToken}`, {
     method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+
+    throw {
+      status: response.status,
+      message: response.statusText,
+    };
+  }
+
+  return response.json();
+}
+
+export async function attendTurno(turnoToken) {
+  const token = sessionStorage.getItem('session');
+
+  const response = await fetch(`${endpoint}/appointments/${turnoToken}`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,

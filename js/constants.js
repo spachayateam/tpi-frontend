@@ -1,7 +1,7 @@
 export const listaTurnos = (profesional) => {
   const turnos = [
     {
-      hora: "09:00 AM - 10:00 AM",
+      hora: "09:00 - 10:00",
       profesional,
       duracion: "60 minutos",
       modalidad: "Efectivo",

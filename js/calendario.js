@@ -98,7 +98,7 @@ function renderCalendar() {
 // mostrarTurnos(currentDate.getDate(), currentDate.getMonth() + 1, currentDate.getFullYear());
 
 function mostrarTurnos(dia, mes, anio) {
-    const servicio = localStorage.getItem("servicio");
+    const servicio = sessionStorage.getItem("servicio");
     if (!servicio) return;
 
     turnos.innerText = "";
@@ -106,8 +106,9 @@ function mostrarTurnos(dia, mes, anio) {
 
     const fecha = `${anio}-${String(mes).padStart(2, "0")}-${String(dia).padStart(2, "0")}`;
 
-    const seleccionado = JSON.parse(localStorage.getItem("servicio") || "{}");
+    const seleccionado = JSON.parse(sessionStorage.getItem("servicio") || "{}");
 
+    const professionalId = seleccionado.professionalId;
     const profesional = seleccionado.profesional;
     const modalidad = seleccionado.servicio;
     const payout = seleccionado.payout;
@@ -122,10 +123,10 @@ function mostrarTurnos(dia, mes, anio) {
       const params = {
         fecha,
         hora: t.hora,
+        professionalId,
         profesional: t.profesional,
         duracion: t.duracion,
-        modalidad: t.modalidad,
-        servicio: t.servicio,
+        modalidad,
         payout,
       };
 
@@ -140,7 +141,6 @@ function mostrarTurnos(dia, mes, anio) {
           <p><strong>Profesional:</strong> ${t.profesional}</p>
           <p><strong>Duración:</strong> ${t.duracion}</p>
           <p><strong>Modalidad:</strong> ${t.modalidad}</p>
-          <p><strong>Servicio:</strong> ${t.servicio}</p>
           <p class="seleccionar-turno">Seleccionar turno</p>
         </div>
       `;
@@ -160,16 +160,15 @@ function mostrarTurnos(dia, mes, anio) {
   
   renderCalendar(); // Inicializa el calendario
   
-  function guardarTurno(turno) {    
-    const session = localStorage.getItem("session");
+  function guardarTurno(turno) {      
+    const session = sessionStorage.getItem("session");
     
     if (!session) { 
-      localStorage.setItem("turno", JSON.stringify(turno));
+      sessionStorage.setItem("turno", JSON.stringify(turno));
       alert("Inicia sesión para guardar turnos");
       window.location.href = "/pages/sesion.html";
       return;
     }
-
 
     paymentMethodForm.innerHTML = "";
 
@@ -230,10 +229,10 @@ function mostrarTurnos(dia, mes, anio) {
         
         await saveTurno(turno);
   
-        alert("Turno guardado y comprobante enviado exitosamente");
+        alert("Turno guardado y comprobante enviado con éxito");
         window.location.href = "/pages/misturnos.html";
-        localStorage.removeItem("turno");
-        localStorage.removeItem("servicio");
+        sessionStorage.removeItem("turno");
+        sessionStorage.removeItem("servicio");
       } catch (error) {
         if (error.status === 400) {
           alert(error.message);

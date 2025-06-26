@@ -20,9 +20,7 @@
 .div_nav{
     display: flex;
     flex-direction: row;
-    justify-content:space-between;
-    
-    
+    justify-content: space-between;
 }
 
 .div_items{

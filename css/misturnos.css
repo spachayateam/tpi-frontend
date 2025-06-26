@@ -45,6 +45,18 @@ button:hover {
     background-color: #c82333;
 }
 
+.delete-turno {
+    background-color: #dc3545;
+}
+
+.atender-turno {
+    background-color: #007bff;
+}
+
+.atender-turno:hover {
+    background-color: #0062cc;
+}
+
 
 @media (max-width: 600px) {
     body {

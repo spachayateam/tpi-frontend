@@ -1,7 +1,7 @@
 import { login } from "./api.js";
 
 document.addEventListener('DOMContentLoaded', () => {
-  const session = localStorage.getItem('session');
+  const session = sessionStorage.getItem('session');
 
   if (session) {
     window.location.href = '/pages/turnos.html';
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const response = await login(email, password);
 
-      localStorage.setItem('session', response?.accessToken);
+      sessionStorage.setItem('session', response?.accessToken);
       window.location.href = '/pages/turnos.html';
       
       alert('Sesión iniciada con éxito');
