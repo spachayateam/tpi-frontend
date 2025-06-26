@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reportes de Pago</title>
+  <link rel="stylesheet" href="/css/paneladmin.css" />
+  <style>
+    .reportes-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    select {
+      display: block;
+      margin: 0 auto 30px auto;
+      padding: 8px 12px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 250px;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #f5a6d2;
+      color: black;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <div class="reportes-container">
+    <h1>📊 Reportes de Pago</h1>
+
+    <label for="profesional-select">Seleccionar Profesional:</label>
+    <select id="profesional-select">
+      <option value="">-- Elige un profesional --</option>
+      <!-- Opciones cargadas dinámicamente -->
+    </select>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Servicio</th>
+          <th>Cantidad de Turnos</th>
+          <th>Total Recaudado Servicio</th>
+          <th>Total Turnos (Profesional)</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-reportes">
+        <!-- Aquí se insertarán los datos dinámicamente -->
+      </tbody>
+    </table>
+  </div>
+
+  <script type="module" src="/js/reportes-pago.js"></script>
+</body>
+</html>

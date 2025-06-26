@@ -7,45 +7,47 @@ const tokenPayload = decodeJWT(session);
 const isAdmin = tokenPayload.role === "ADMIN";
 
 function setAccionesRapidas() {
-
   const accionesRapidas = document.getElementById("panel-acciones-rapidas");
 
   if (isAdmin) {
     accionesRapidas.innerHTML = `
       <a class="accion-card" href="/pages/gestionarservicios.html">
-            <span class="icono">⚙️</span>
-            <span>Gestionar servicios</span>
-          </a>
-          <a class="accion-card" href="/pages/misturnos.html">
-            <span class="icono">📅</span>
-            <span>Ver todos los turnos</span>
-          </a>
-          <a class="accion-card" href="/pages/gestionarprofesionales.html">
-            <span class="icono">🧑‍⚕️</span>
-            <span>Gestionar profesionales</span>
-          </a>
-          <a class="accion-card" href="/pages/turnos.html">
-            <span class="icono">📅</span>
-            <span>Crear turno manualmente</span>
-          </a>
+        <span class="icono">⚙️</span>
+        <span>Gestionar servicios</span>
+      </a>
+      <a class="accion-card" href="/pages/misturnos.html">
+        <span class="icono">📅</span>
+        <span>Ver todos los turnos</span>
+      </a>
+      <a class="accion-card" href="/pages/gestionarprofesionales.html">
+        <span class="icono">🧑‍⚕️</span>
+        <span>Gestionar profesionales</span>
+      </a>
+      <a class="accion-card" href="/pages/turnos.html">
+        <span class="icono">📅</span>
+        <span>Crear turno manualmente</span>
+      </a>
+      <a class="accion-card" href="/pages/reportes-pago.html">
+        <span class="icono">💵</span>
+        <span>Reportes de pago</span>
+      </a>
     `;
-
     return;
   }
 
   accionesRapidas.innerHTML = `
     <a class="accion-card" href="/pages/misturnos.html">
-            <span class="icono">📅</span>
-            <span>Historial de turnos</span>
-          </a>
-          <a class="accion-card" href="/pages/historialclientes.html">
-            <span class="icono">🧑‍⚕️</span>
-            <span>Historial clientes</span>
-          </a>
-          <a class="accion-card" href="/pages/proximos-turnos.html">
-            <span class="icono">📅</span>
-            <span>Próximos turnos</span>
-          </a>
+      <span class="icono">📅</span>
+      <span>Historial de turnos</span>
+    </a>
+    <a class="accion-card" href="/pages/historialclientes.html">
+      <span class="icono">🧑‍⚕️</span>
+      <span>Historial clientes</span>
+    </a>
+    <a class="accion-card" href="/pages/proximos-turnos.html">
+      <span class="icono">📅</span>
+      <span>Próximos turnos</span>
+    </a>
   `;
 }
 
