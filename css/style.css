@@ -1741,3 +1741,30 @@ section.tips-spa h2 {
   display: flex;
 
 }
+
+
+.volver-gestionar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e461bd;
+  height: 40px;
+  width: 90px;
+  margin-top: 40px;
+  margin-left: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border-radius: 15%;
+}
+
+.volver-gestionar:hover {
+  background-color: #da389c;
+  transform: scale(1.05);
+}
+
+
+.volver-gestionar a{
+  text-decoration: none;
+  color: #000000;
+}
