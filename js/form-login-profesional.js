@@ -1,7 +1,7 @@
 import { loginProfesional } from "./api.js";
 
 document.addEventListener('DOMContentLoaded', () => {
-  const session = sessionStorage.getItem('session');
+  const session = localStorage.getItem('session');
 
   if (session) {
     window.location.href = '/pages/turnos.html';
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const response = await loginProfesional(email, password);
 
-      sessionStorage.setItem('session', response?.accessToken);
+      localStorage.setItem('session', response?.accessToken);
       window.location.href = '/pages/panel.html';
       
       alert('Sesión iniciada con éxito');

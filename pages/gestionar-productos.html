@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentirse bien - Gestionar Productos y Proveedores</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/paneladmin.css">
+    <link rel="shortcut icon" href="/media/icono_oficial.png" type="image/x-icon">
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <main>
+        <div style="padding: 40px 0; background: white; position: sticky; top: 0; z-index: 1;">
+            <a href="/pages/panel.html" style="
+              font-size: 20px;
+              background-color: rgb(245, 116, 195);
+              font-weight: bold;
+              display: flex;
+              padding-left: 20px;
+              padding-right: 20px;
+              border: 1px solid black;
+              border-radius: 60px;
+              justify-content: center;
+              align-items: center;
+              text-decoration: none;
+              color: black;
+              width: 200px;
+              margin: 0 auto;
+            ">VOLVER AL PANEL</a>
+        </div>
+
+        <div class="panel">
+            <h1 style="text-align: center; font-size: 48px; color: #e84b91; margin-bottom: 40px;">
+                📦 Gestión de Productos y Proveedores
+            </h1>
+
+            <!-- Tabs -->
+            <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 40px; border-bottom: 2px solid #e84b91;">
+                <button id="tab-productos" class="tab-button active" onclick="mostrarTab('productos')">
+                    Productos
+                </button>
+                <button id="tab-proveedores" class="tab-button" onclick="mostrarTab('proveedores')">
+                    Proveedores
+                </button>
+            </div>
+
+            <!-- Contenido de Productos -->
+            <div id="contenido-productos" class="tab-content">
+                <div style="text-align: right; margin-bottom: 20px;">
+                    <button id="btn-agregar-producto" style="
+                        padding: 12px 24px;
+                        background-color: #4caf50;
+                        color: white;
+                        border: none;
+                        border-radius: 8px;
+                        font-size: 16px;
+                        font-weight: bold;
+                        cursor: pointer;
+                    ">+ Agregar Producto</button>
+                </div>
+                <div id="productos-lista"></div>
+            </div>
+
+            <!-- Contenido de Proveedores -->
+            <div id="contenido-proveedores" class="tab-content" style="display: none;">
+                <div style="text-align: right; margin-bottom: 20px;">
+                    <button id="btn-agregar-proveedor" style="
+                        padding: 12px 24px;
+                        background-color: #4caf50;
+                        color: white;
+                        border: none;
+                        border-radius: 8px;
+                        font-size: 16px;
+                        font-weight: bold;
+                        cursor: pointer;
+                    ">+ Agregar Proveedor</button>
+                </div>
+                <div id="proveedores-lista"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal para agregar/editar producto -->
+    <div id="modal-producto" class="modal-venta" style="display: none;">
+        <div class="modal-content-venta" style="max-width: 600px;">
+            <span class="close-modal" onclick="cerrarModalProducto()">&times;</span>
+            <h2 id="modal-producto-titulo">Agregar Producto</h2>
+            <form id="form-producto">
+                <input type="hidden" id="producto-id">
+                <label for="producto-name">Nombre:</label>
+                <input type="text" id="producto-name" required>
+                
+                <label for="producto-tipo">Tipo:</label>
+                <select id="producto-tipo" required>
+                    <option value="">Seleccione tipo</option>
+                    <option value="Skincare">Skincare</option>
+                    <option value="Relajacion">Relajación</option>
+                </select>
+                
+                <label for="producto-categoria">Categoría:</label>
+                <input type="text" id="producto-categoria" placeholder="Ej: serum, crema hidratante, gel de baño" required>
+                
+                <label for="producto-precio">Precio:</label>
+                <input type="number" id="producto-precio" step="0.01" min="0" required>
+                
+                <label for="producto-descripcion">Descripción:</label>
+                <textarea id="producto-descripcion" rows="3" required></textarea>
+                
+                <label for="producto-imagen">URL de Imagen:</label>
+                <input type="text" id="producto-imagen" placeholder="/media/organic-spa-products-white-background.jpg">
+                
+                <label for="producto-stock">Stock:</label>
+                <input type="number" id="producto-stock" min="0" value="0" required>
+                
+                <label for="producto-proveedor">Proveedor (opcional):</label>
+                <select id="producto-proveedor">
+                    <option value="">Sin proveedor</option>
+                </select>
+                
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn-confirmar-venta" style="flex: 1;">Guardar</button>
+                    <button type="button" onclick="cerrarModalProducto()" style="
+                        flex: 1;
+                        padding: 15px;
+                        background-color: #ccc;
+                        color: white;
+                        border: none;
+                        border-radius: 8px;
+                        font-size: 18px;
+                        font-weight: bold;
+                        cursor: pointer;
+                    ">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para agregar/editar proveedor -->
+    <div id="modal-proveedor" class="modal-venta" style="display: none;">
+        <div class="modal-content-venta" style="max-width: 600px;">
+            <span class="close-modal" onclick="cerrarModalProveedor()">&times;</span>
+            <h2 id="modal-proveedor-titulo">Agregar Proveedor</h2>
+            <form id="form-proveedor">
+                <input type="hidden" id="proveedor-id">
+                <label for="proveedor-nombre">Nombre:</label>
+                <input type="text" id="proveedor-nombre" required>
+                
+                <label for="proveedor-email">Email:</label>
+                <input type="email" id="proveedor-email" required>
+                
+                <label for="proveedor-telefono">Teléfono:</label>
+                <input type="text" id="proveedor-telefono" required>
+                
+                <label for="proveedor-direccion">Dirección (opcional):</label>
+                <input type="text" id="proveedor-direccion">
+                
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn-confirmar-venta" style="flex: 1;">Guardar</button>
+                    <button type="button" onclick="cerrarModalProveedor()" style="
+                        flex: 1;
+                        padding: 15px;
+                        background-color: #ccc;
+                        color: white;
+                        border: none;
+                        border-radius: 8px;
+                        font-size: 18px;
+                        font-weight: bold;
+                        cursor: pointer;
+                    ">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer-spa">
+        <div class="footer-bottom">
+            <p>&copy; SpaSentirseBien, 2025. All Rights Reserved.</p>
+        </div>
+        <div class="info_deequipo">
+            <div class="imagenynombre">
+                <div><img src="/media/WhatsApp Image 2025-05-09 at 08.38.04 (1).jpeg" alt=""></div>
+                <div class="titulo_team">
+                    <h3>© Chaya Team</h3>
+                </div>
+            </div>
+            <div class="nombresintegrantes">
+                <h3>Rudaz, Lautaro</h3>
+                <h3>Zeniquel, Federico</h3>
+                <h3>Rudaz, Ulises</h3>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/js/components.js"></script>
+    <script type="module" src="/js/gestionar-productos.js"></script>
+</body>
+
+</html>
+

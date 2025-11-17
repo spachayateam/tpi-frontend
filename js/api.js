@@ -120,7 +120,7 @@ export async function registrarProfesional(params = {}) {
 }
 
 export async function saveTurno(params) {
-  const token = sessionStorage.getItem('session');
+  const token = localStorage.getItem('session');
 
   const response = await fetch(`${endpoint}/appointments`, {
     method: 'POST',
@@ -152,12 +152,10 @@ export async function saveTurno(params) {
   return response.json();
 }
 
-export async function getTurnos(parmas = {
-  nextAppointments: 0,
-}) {
-  const token = sessionStorage.getItem('session');
+export async function getTurnos() {
+  const token = localStorage.getItem('session');
 
-  const response = await fetch(`${endpoint}/appointments?nextAppointments=${parmas.nextAppointments}`, {
+  const response = await fetch(`${endpoint}/appointments`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -177,7 +175,7 @@ export async function getTurnos(parmas = {
 }
 
 export async function deleteTurno(turnoToken) {
-  const token = sessionStorage.getItem('session');
+  const token = localStorage.getItem('session');
 
   const response = await fetch(`${endpoint}/appointments/${turnoToken}`, {
     method: 'DELETE',
@@ -198,11 +196,46 @@ export async function deleteTurno(turnoToken) {
   return response.json();
 }
 
-export async function attendTurno(turnoToken) {
-  const token = sessionStorage.getItem('session');
+// Funciones para productos y ventas
+export async function crearVenta(params = {}) {
+  const token = localStorage.getItem('session');
+  const { productoId, cantidad, metodoPago, precioTotal, precioUnitario, compradorNombre, compradorDni } = params;
 
-  const response = await fetch(`${endpoint}/appointments/${turnoToken}`, {
-    method: 'PATCH',
+  const body = {
+    productoId,
+    cantidad,
+    metodoPago,
+    precioTotal,
+    precioUnitario,
+    compradorNombre,
+    compradorDni
+  };
+
+  const response = await fetch(`${endpoint}/ventas`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw {
+      status: response.status,
+      message: error.message || response.statusText,
+    };
+  }
+
+  return response.json();
+}
+
+export async function obtenerVentas() {
+  const token = localStorage.getItem('session');
+
+  const response = await fetch(`${endpoint}/ventas`, {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
@@ -210,7 +243,27 @@ export async function attendTurno(turnoToken) {
   });
 
   if (!response.ok) {
+    throw {
+      status: response.status,
+      message: response.statusText,
+    };
+  }
 
+  return response.json();
+}
+
+export async function obtenerStock() {
+  const token = localStorage.getItem('session');
+
+  const response = await fetch(`${endpoint}/productos/stock`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
     throw {
       status: response.status,
       message: response.statusText,

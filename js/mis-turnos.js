@@ -1,10 +1,7 @@
-import { deleteTurno, attendTurno, getTurnos } from "./api.js";
+import { deleteTurno, getTurnos } from "./api.js";
 import { decodeJWT } from "./jwt-decode.js";
 
-const user = decodeJWT(sessionStorage.getItem("session"));
-
 async function obtenerTurnos() {
-  
   try {
     const turnos = await getTurnos();
     return turnos;
@@ -35,23 +32,6 @@ async function eliminarTurno(tokenTurno) {
   }
 }
 
-async function atenderTurno(tokenTurno) {
-  try {
-    await attendTurno(tokenTurno);
-    alert("Turno marcado como atendido");
-
-    const turnos = await obtenerTurnos();
-    mostrarTurnos(turnos);
-  } catch (error) {
-    if (error.status === 401) {
-      alert("Sesión expirada, por favor, inicia sesión nuevamente");
-      window.location.href = "/pages/sesion.html";
-    } else {
-      alert("Error al marcar turno como atendido");
-    }
-  }
-}
-
 function mostrarTurnos(turnosGuardados = []) {
   const contenedorTurnos = document.getElementById("misTurnos");
 
@@ -68,47 +48,18 @@ function mostrarTurnos(turnosGuardados = []) {
     turnoDiv.id = turno.token;
 
     turnoDiv.innerHTML = `
-      <p><strong>Fecha:</strong> ${new Date(turno.date).toLocaleDateString(
-        "es-PE"
-      )}</p>
+      <p><strong>Fecha:</strong> ${new Date(turno.date).toLocaleDateString("es-PE")}</p>
       <p><strong>Hora:</strong> ${turno.time}</p>
       <p><strong>Profesional:</strong> ${turno.professional}</p>
       <p><strong>Duración:</strong> ${turno.duration}</p>
       <p><strong>Modalidad:</strong> ${turno.mode}</p>
-      <p style="padding-top: 10px; font-weight: bold; color: blue;">Cliente: ${
-        turno.name
-      }</p>
-      ${
-        turno.state === "PENDIENTE"
-          ? '<p style="padding-top: 10px; font-weight: bold; color: orange;">Estado: Pendiente</p>'
-          : ""
-      }
-      ${
-        turno.state === "ATENDIDO"
-          ? '<p style="padding-top: 10px; font-weight: bold; color: green;">Estado: Atendido</p>'
-          : ""
-      }
-      ${
-        turno.state === "CANCELADO"
-          ? '<p style="padding-top: 10px; font-weight: bold; color: gray;">Estado: Cancelado</p>'
-          : ""
-      }
-      ${
-        turno.state === "VENCIDO"
-          ? '<p style="padding-top: 10px; font-weight: bold; color: red;">Estado: Vencido</p>'
-          : ""
-      }
-      <button class="delete-turno" style="display: ${
-        ["PENDIENTE"].includes(turno.state) ? "block" : "none"
-      }" id="delete-${turno.token}">Eliminar</button>
-      <button class="atender-turno" style="display: ${
-        ["PENDIENTE"].includes(turno.state) && user.role === "PROFESSIONAL"
-          ? "block"
-          : "none"
-      }" id="atender-${turno.token}">Marcar como atendido</button>
-<button class="descargar-turno" data-token="${
-      turno.token
-    }" style="margin-top: 10px; background-color: green; color: white; border: none; padding: 5px 10px; border-radius: 4px;">Descargar PDF</button>
+      <p style="padding-top: 10px; font-weight: bold; color: blue;">Cliente: ${turno.name}</p>
+      ${turno.state === 'PENDIENTE' ? '<p style="padding-top: 10px; font-weight: bold; color: orange;">Estado: Pendiente</p>' : ''}
+      ${turno.state === 'ATENDIDO' ? '<p style="padding-top: 10px; font-weight: bold; color: green;">Estado: Atendido</p>' : ''}
+      ${turno.state === 'CANCELADO' ? '<p style="padding-top: 10px; font-weight: bold; color: gray;">Estado: Cancelado</p>' : ''}
+      ${turno.state === 'VENCIDO' ? '<p style="padding-top: 10px; font-weight: bold; color: red;">Estado: Vencido</p>' : ''}
+      <button style="display: ${['PENDIENTE'].includes(turno.state) ? 'block' : 'none'}" id="delete-${turno.token}">Eliminar</button>
+<button class="descargar-turno" data-token="${turno.token}" style="margin-top: 10px; background-color: green; color: white; border: none; padding: 5px 10px; border-radius: 4px;">Descargar PDF</button>
     `;
 
     contenedorTurnos.appendChild(turnoDiv);
@@ -117,22 +68,9 @@ function mostrarTurnos(turnosGuardados = []) {
     const btnEliminar = document.getElementById(`delete-${turno.token}`);
     if (btnEliminar) {
       btnEliminar.addEventListener("click", () => {
-        const confirmacion = window.confirm(
-          "¿Estás seguro de eliminar este turno?"
-        );
+        const confirmacion = window.confirm("¿Estás seguro de eliminar este turno?");
         if (!confirmacion) return;
         eliminarTurno(turno.token);
-      });
-    }
-
-    const btnAtender = document.getElementById(`atender-${turno.token}`);
-    if (btnAtender) {
-      btnAtender.addEventListener("click", () => {
-        const confirmacion = window.confirm(
-          "¿Estás seguro de marcar este turno como atendido?"
-        );
-        if (!confirmacion) return;
-        atenderTurno(turno.token);
       });
     }
 
@@ -141,10 +79,10 @@ function mostrarTurnos(turnosGuardados = []) {
     btnDescarga.addEventListener("click", () => {
       const opciones = {
         margin: 0.3,
-        filename: `turno-${turno.date.split("T")[0]}-${turno.name}.pdf`,
-        image: { type: "jpeg", quality: 0.98 },
+        filename: `turno-${turno.date.split('T')[0]}-${turno.name}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
-        jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
       };
 
       html2pdf().set(opciones).from(turnoDiv).save();
@@ -161,9 +99,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   mostrarTurnos(turnos);
 });
 
-const session = sessionStorage.getItem("session");
+const session = localStorage.getItem("session");
 const tokenPayload = decodeJWT(session);
 
-document.getElementById("turnos_title").innerHTML = `${
-  tokenPayload.role === "ADMIN" ? "Todos los" : "Mis"
-} turnos`;
+document.getElementById('turnos_title').innerHTML = `${tokenPayload.role === 'ADMIN' ? 'Todos los' : 'Mis'} turnos`;

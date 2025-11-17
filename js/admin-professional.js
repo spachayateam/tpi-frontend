@@ -1,7 +1,7 @@
 import { decodeJWT } from "./jwt-decode.js";
 import endpoint from "./endpoint.js";
 
-const session = sessionStorage.getItem('session');
+const session = localStorage.getItem('session');
 const tokenPayload = decodeJWT(session);
 
 if (tokenPayload.role !== 'ADMIN') {

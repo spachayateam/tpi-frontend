@@ -45,18 +45,6 @@ button:hover {
     background-color: #c82333;
 }
 
-.delete-turno {
-    background-color: #dc3545;
-}
-
-.atender-turno {
-    background-color: #007bff;
-}
-
-.atender-turno:hover {
-    background-color: #0062cc;
-}
-
 
 @media (max-width: 600px) {
     body {
@@ -88,23 +76,6 @@ button:hover {
 }
 
 .volver-a-citas {
-    height: 30px;
-    width:  100%;
+    padding-top: 40px;
     text-align: center;
-    padding-top: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-
-.volver-a-citas:hover {
-  background-color: #ffffff;
-  transform: scale(1.05);
-}
-
-.volver-a-citas a {
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
 }

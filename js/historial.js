@@ -2,7 +2,7 @@ import { decodeJWT } from "./jwt-decode.js";
 import endpoint from "./endpoint.js";
 
 async function mostrarHistorial() {
-    const token = sessionStorage.getItem('session');
+    const token = localStorage.getItem('session');
     const userId = decodeJWT(token).userId;
 
     const response = await fetch(`${endpoint}/historial`, {

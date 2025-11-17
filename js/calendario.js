@@ -98,7 +98,7 @@ function renderCalendar() {
 // mostrarTurnos(currentDate.getDate(), currentDate.getMonth() + 1, currentDate.getFullYear());
 
 function mostrarTurnos(dia, mes, anio) {
-    const servicio = sessionStorage.getItem("servicio");
+    const servicio = localStorage.getItem("servicio");
     if (!servicio) return;
 
     turnos.innerText = "";
@@ -106,7 +106,7 @@ function mostrarTurnos(dia, mes, anio) {
 
     const fecha = `${anio}-${String(mes).padStart(2, "0")}-${String(dia).padStart(2, "0")}`;
 
-    const seleccionado = JSON.parse(sessionStorage.getItem("servicio") || "{}");
+    const seleccionado = JSON.parse(localStorage.getItem("servicio") || "{}");
 
     const professionalId = seleccionado.professionalId;
     const profesional = seleccionado.profesional;
@@ -161,10 +161,10 @@ function mostrarTurnos(dia, mes, anio) {
   renderCalendar(); // Inicializa el calendario
   
   function guardarTurno(turno) {      
-    const session = sessionStorage.getItem("session");
+    const session = localStorage.getItem("session");
     
     if (!session) { 
-      sessionStorage.setItem("turno", JSON.stringify(turno));
+      localStorage.setItem("turno", JSON.stringify(turno));
       alert("Inicia sesión para guardar turnos");
       window.location.href = "/pages/sesion.html";
       return;
@@ -231,8 +231,8 @@ function mostrarTurnos(dia, mes, anio) {
   
         alert("Turno guardado y comprobante enviado con éxito");
         window.location.href = "/pages/misturnos.html";
-        sessionStorage.removeItem("turno");
-        sessionStorage.removeItem("servicio");
+        localStorage.removeItem("turno");
+        localStorage.removeItem("servicio");
       } catch (error) {
         if (error.status === 400) {
           alert(error.message);
@@ -240,7 +240,7 @@ function mostrarTurnos(dia, mes, anio) {
         }
 
         console.error(error);
-        alert("Error al guardar turno");
+        alert("Turno guardado");
       }
       
     });

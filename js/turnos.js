@@ -37,7 +37,7 @@ async function getServices() {
         payout: servicio.precio,
       };
 
-      sessionStorage.setItem("servicio", JSON.stringify(params));
+      localStorage.setItem("servicio", JSON.stringify(params));
 
         const today = new Date().getDate();
 
